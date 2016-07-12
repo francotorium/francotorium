@@ -32,6 +32,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(function(req, res, next){
+    res.locals.currentUser = req.user;
+    next();
+});
 
 // RESTful routes
 app.get("/", function(req, res){
@@ -61,6 +65,7 @@ app.post("/register", function(req,res){
 });
 
 app.get("/blog", function(req,res){
+    console.log(req.user);
     Post.find({}, function(err, blogs){
         if(err){
             console.log("ERROR!");

@@ -1,0 +1,15 @@
+<% include ./partials/header %>
+<h1>Welcome to my Website!</h1>
+<p>I'm currently in the process of rebuilding my site + blog + portfolio from the ground up!</p>
+
+<% blogs.forEach(function(blog){ %>
+
+    <div>
+        <h2><%= blog.title %></h2>
+        <img src="<%= blog.image %>" >
+        <span><%= blog.created %></span>
+       <p><%= blog.body.substring(0, 100) %>...</p> 
+        <a href="/blog/<%= blog._id %>">Read More</a>
+    </div>
+<% }) %>
+<% include ./partials/footer %>

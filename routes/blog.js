@@ -3,7 +3,6 @@ var router = express.Router();
 var Post   = require("../models/post");
 
 router.get("/", function(req,res){
-    console.log(req.user);
     Post.find({}, function(err, blogs){
         if(err){
             console.log("ERROR!");
@@ -21,8 +20,15 @@ router.get("/new",isLoggedIn, function(req, res){
 
 // CREATE ROUTE
 router.post("/",isLoggedIn, function(req, res){
-  //create blog
-  Post.create(req.body.blog, function(err, newBlog){
+  var title = req.body.blog.title;
+  var image = req.body.blog.image;
+  var body = req.body.blog.body;
+  var author = {
+      id: req.user._id,
+      username: req.user.username
+  };
+  var newPost = {title: title, image: image, body: body, author: author};
+  Post.create(newPost, function(err, newBlog){
       if(err){
           res.render("new");
       } else {

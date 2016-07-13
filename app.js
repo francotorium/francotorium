@@ -13,8 +13,7 @@ var Post = require("./models/post");
 var blogRoutes = require("./routes/blog"),
     indexRoutes = require("./routes/index");
 
-// mongoose.connect("mongodb://localhost/coldbrew_app");
-mongoose.connect("mongodb://github:github@ds011705.mlab.com:11705/coldbrew");
+mongoose.connect(process.env.DATABASEURL);
 
 app.use(require("express-session")({
     secret: "CLEAR",
